@@ -2,18 +2,18 @@
 // World logic uses "map" coordinates (Blender X/Y, metres, Y = north). Use toWorld() to convert to three.js.
 
 export const QUALITY = {
-  low:    { label: 'נמוכה', pixelRatioMax: 1.0, shadows: false, shadowSize: 0,    cars: 9,  peds: 12, cyclists: 1, birds: 1, clouds: 5 },
-  medium: { label: 'בינונית', pixelRatioMax: 1.5, shadows: true,  shadowSize: 1024, cars: 15, peds: 20, cyclists: 2, birds: 2, clouds: 8 },
-  high:   { label: 'גבוהה', pixelRatioMax: 2.0, shadows: true,  shadowSize: 2048, cars: 21, peds: 28, cyclists: 2, birds: 3, clouds: 11 },
+  low:    { label: 'נְמוּכָה', pixelRatioMax: 1.0, shadows: false, shadowSize: 0,    cars: 9,  peds: 8,  pairs: 1, cyclists: 1, birds: 1, clouds: 5 },
+  medium: { label: 'בֵּינוֹנִית', pixelRatioMax: 1.5, shadows: true,  shadowSize: 1024, cars: 15, peds: 13, pairs: 2, cyclists: 2, birds: 2, clouds: 8 },
+  high:   { label: 'גְּבוֹהָה', pixelRatioMax: 2.0, shadows: true,  shadowSize: 2048, cars: 21, peds: 16, pairs: 2, cyclists: 2, birds: 3, clouds: 11 },
 };
 
 // Camera viewpoints (map coords). target = look-at point, pos = camera position.
 export const VIEWS = {
-  overview:     { label: 'מבט על',     target: [8, -2, 0],   pos: [20, -62, 52] },
-  intersection: { label: 'הצומת',      target: [1, 0, 0],    pos: [17, -19, 12] },
-  school:       { label: 'בית הספר',   target: [14, 9, 1],   pos: [19, -9, 9] },
-  busstop:      { label: 'התחנה',      target: [31, -5, 1],  pos: [21, 7, 9] },
-  park:         { label: 'גן המשחקים', target: [24, -22, 0], pos: [8, -40, 16] },
+  overview:     { label: 'מַבָּט עַל',     target: [8, -2, 0],   pos: [20, -62, 52] },
+  intersection: { label: 'הַצֹּמֶת',      target: [1, 0, 0],    pos: [17, -19, 12] },
+  school:       { label: 'בֵּית הַסֵּפֶר',   target: [14, 9, 1],   pos: [19, -9, 9] },
+  busstop:      { label: 'הַתַּחֲנָה',      target: [31, -5, 1],  pos: [21, 7, 9] },
+  park:         { label: 'גַּן הַמִּשְׂחָקִים', target: [24, -22, 0], pos: [8, -40, 16] },
 };
 
 export const INTRO = {

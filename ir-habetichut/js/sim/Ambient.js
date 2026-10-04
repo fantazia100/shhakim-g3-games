@@ -1,27 +1,16 @@
 import * as THREE from 'three';
-import { toWorld } from '../coords.js';
+import { toWorld, lerp, clamp, smooth } from '../coords.js';
+import { PlayAndChat } from './People.js';
 
 // Ambient life: swaying trees, waving flag, swings / seesaw with kids, playground runners, birds, clouds.
 export class Ambient {
-  constructor(scene, world, protos) {
+  constructor(scene, world, chars) {
     this.scene = scene; this.t = 0;
     this.trees = world.trees.map((o) => ({ o, ph: Math.random() * 6.28, base: o.rotation.clone(), amp: o.name.startsWith('Palm') ? 0.035 : 0.02 }));
     this.anim = world.anim;
     this.group = new THREE.Group(); this.group.name = 'Ambient'; scene.add(this.group);
-    // kids sitting on the swings and seesaw
-    const kid = (k) => { const c = protos[k].clone(true); c.traverse((o) => { if (o.isMesh) o.castShadow = true; }); return c; };
-    ['Swing_0', 'Swing_1'].forEach((n, i) => {
-      const seat = this.anim[n]; if (!seat) return;
-      const k = kid(i ? 'Kid_Pink' : 'Kid_Green'); k.position.set(0, -1.62, 0); k.scale.setScalar(0.9); k.rotation.y = -Math.PI / 2; seat.add(k);
-    });
-    if (this.anim.Seesaw) {
-      [-1.4, 1.4].forEach((x, i) => { const k = kid(i ? 'Kid_Blue' : 'Kid_Red'); k.position.set(x, 0.05, 0); k.scale.setScalar(0.85); k.rotation.y = i ? Math.PI : 0; this.anim.Seesaw.add(k); });
-    }
-    // children running around inside the playground
-    this.runners = [];
-    [['Kid_Red', 18, -22, 3.2, 0.55], ['Kid_Blue', 29, -25, 2.5, -0.7], ['Kid_Pink', 22, -16, 2.0, 0.9]].forEach(([k, cx, cy, r, w]) => {
-      const o = kid(k); this.group.add(o); this.runners.push({ o, cx, cy, r, w, ph: Math.random() * 6 });
-    });
+    this.lib = chars.lib; this.sys = chars.sys;
+    this.people = new PlayAndChat(this);
     this.birds = []; this.clouds = [];
   }
   setCounts(flocks, clouds) {
@@ -73,11 +62,7 @@ export class Ambient {
     if (a.Swing_0) a.Swing_0.rotation.x = Math.sin(t * 2.1) * 0.55;
     if (a.Swing_1) a.Swing_1.rotation.x = Math.sin(t * 2.1 + 1.7) * 0.45;
     if (a.Seesaw) a.Seesaw.rotation.z = Math.sin(t * 1.6) * 0.16;
-    for (const r of this.runners) {
-      const ang = r.ph + t * r.w;
-      toWorld(r.cx + Math.cos(ang) * r.r, r.cy + Math.sin(ang) * r.r, 0.17 + Math.abs(Math.sin(t * 9 + r.ph)) * 0.12, r.o.position);
-      r.o.rotation.y = ang + Math.sign(r.w) * Math.PI / 2;
-    }
+    this.people.update(dt, t);
     for (const f of this.birds) {
       const ang = f.ph + t * f.w;
       f.g.position.set(f.cx + Math.cos(ang) * f.r, f.h + Math.sin(t * 0.4 + f.ph) * 3, f.cy + Math.sin(ang) * f.r);
@@ -88,6 +73,9 @@ export class Ambient {
         b.pl.rotation.x = flap; b.pr.rotation.x = -flap;
       }
     }
-    for (const c of this.clouds) { c.position.x += c.userData.v * dt; if (c.position.x > 170) c.position.x = -170; }
+    for (const c of this.clouds) {
+      c.position.x += c.userData.v * dt; if (c.position.x > 170) c.position.x = -170;
+      if (this.camera) c.visible = c.position.distanceTo(this.camera.position) > 48;   // never fly through a cloud
+    }
   }
 }

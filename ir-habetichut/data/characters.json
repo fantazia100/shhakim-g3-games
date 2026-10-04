@@ -1,0 +1,67 @@
+{
+  "fps": 30,
+  "palette_cells": {
+    "skin": 0,
+    "hair": 1,
+    "shirt": 2,
+    "pants": 3,
+    "shoes": 4,
+    "bag": 5,
+    "white": 6,
+    "black": 7,
+    "mouth": 8,
+    "cheek": 9,
+    "kippah": 10,
+    "vest": 11,
+    "red": 12,
+    "tights": 13,
+    "strap": 14,
+    "helmet": 15
+  },
+  "rigs": {
+    "Kid": {
+      "walkCycleDistance": 0.6912,
+      "walkCycleSeconds": 1.0,
+      "runCycleDistance": 0.9359,
+      "runCycleSeconds": 0.6,
+      "hipHeight": 0.42,
+      "height": 1.135,
+      "clips": [
+        "Kid_Idle",
+        "Kid_Look",
+        "Kid_Paddle",
+        "Kid_Pedal",
+        "Kid_Run",
+        "Kid_Sit",
+        "Kid_Slide",
+        "Kid_Swing",
+        "Kid_Talk",
+        "Kid_Walk",
+        "Kid_WalkHand",
+        "Kid_Wave"
+      ]
+    },
+    "Adult": {
+      "walkCycleDistance": 1.2625,
+      "walkCycleSeconds": 1.0,
+      "runCycleDistance": 1.7136,
+      "runCycleSeconds": 0.6,
+      "hipHeight": 0.74,
+      "height": 1.63,
+      "clips": [
+        "Adult_Idle",
+        "Adult_Look",
+        "Adult_Paddle",
+        "Adult_Pedal",
+        "Adult_Run",
+        "Adult_Sit",
+        "Adult_Slide",
+        "Adult_Swing",
+        "Adult_Talk",
+        "Adult_Walk",
+        "Adult_WalkHand",
+        "Adult_Wave"
+      ]
+    }
+  }
+}

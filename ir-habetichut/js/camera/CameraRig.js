@@ -11,7 +11,7 @@ export class CameraRig {
     const c = (this.controls = new OrbitControls(camera, dom));
     c.enableDamping = true; c.dampingFactor = 0.08;
     c.screenSpacePanning = false;            // pan along the ground
-    c.minDistance = 5; c.maxDistance = 150;
+    c.minDistance = 2.5; c.maxDistance = 150;
     c.maxPolarAngle = THREE.MathUtils.degToRad(80); c.minPolarAngle = THREE.MathUtils.degToRad(8);
     c.rotateSpeed = 0.55; c.zoomSpeed = 1.1; c.panSpeed = 1.0;
     c.zoomToCursor = true;
@@ -31,8 +31,19 @@ export class CameraRig {
   viewPose(name) {
     const v = VIEWS[name] || VIEWS.overview;
     const target = toWorld(...v.target);
-    const pos = toWorld(...v.pos).sub(target).multiplyScalar(this.distScale).add(target);
+    const pos = toWorld(...v.pos);
+    this._portrait(pos, target, 1, 0.14);
     return { target, pos };
+  }
+  /** portrait screens: pull back by `pull` x distScale and tilt the view down (less empty sky, more city) */
+  _portrait(pos, tgt, pull, tilt) {
+    const ds = this.distScale; if (ds <= 1) return pos;
+    const off = pos.clone().sub(tgt), len = off.length() * (1 + (ds - 1) * pull);
+    const hz = Math.hypot(off.x, off.z) || 1e-6; let el = Math.atan2(off.y, hz);
+    el += (Math.PI / 2 - el) * tilt;
+    const k = (len * Math.cos(el)) / hz;
+    pos.set(tgt.x + off.x * k, tgt.y + len * Math.sin(el), tgt.z + off.z * k);
+    return pos;
   }
   playIntro(onEnd) {
     this.mode = 'intro'; this.p = 0; this.controls.enabled = false; this.onIntroEnd = onEnd;
@@ -42,8 +53,8 @@ export class CameraRig {
   _applyIntro(p) {
     const e = ease(clamp(p, 0, 1));
     const pos = this.posCurve.getPoint(e), tgt = this.tgtCurve.getPoint(e);
-    // on portrait screens pull back a little from the look-at point
-    if (this.distScale > 1) pos.sub(tgt).multiplyScalar(1 + (this.distScale - 1) * 0.6).add(tgt);
+    // on portrait screens: pull back a little and look down more steeply (otherwise the tall screen is half sky)
+    if (this.distScale > 1) { this._portrait(pos, tgt, 0.45, 0.3); tgt.y = Math.min(tgt.y, 1.2); }
     this.camera.position.copy(pos); this.camera.lookAt(tgt);
     this.controls.target.copy(tgt);
   }

@@ -1,6 +1,6 @@
 @font-face { font-family: 'Rubik'; src: url('../fonts/Rubik.ttf') format('truetype'); font-weight: 300 900; font-display: swap; }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body { margin: 0; height: 100%; overflow: hidden; background: #9fc6ea; font-family: 'Rubik', Arial, sans-serif; color: #fff; user-select: none; -webkit-user-select: none; }
+html, body { margin: 0; height: 100%; overflow: hidden; overflow-x: hidden; max-width: 100vw; background: #9fc6ea; font-family: 'Rubik', Arial, sans-serif; color: #fff; user-select: none; -webkit-user-select: none; }
 #scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; outline: none; }
 [hidden] { display: none !important; }
 
@@ -43,12 +43,12 @@ html, body { margin: 0; height: 100%; overflow: hidden; background: #9fc6ea; fon
 #dev button { display: block; width: 100%; margin: 3px 0; text-align: right; background: #3b0a4f; color: #fff; border: 0; border-radius: 6px; padding: 6px 8px; font: 13px 'Rubik', Arial; cursor: pointer; }
 
 @media (max-width: 700px) {
-  .views { gap: 6px; flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; pointer-events: auto; padding-bottom: 4px; scrollbar-width: none; }
-  .views button { padding: 10px 12px; font-size: 15px; flex: 0 0 auto; }
+  .views { gap: 6px; flex-wrap: wrap; justify-content: center; overflow: visible; right: 8px; left: 8px; }   /* 3 + 2 buttons, never wider than the screen */
+  .views button { padding: 8px 4px; font-size: 15px; flex: 0 0 calc((100% - 12px) / 3); min-width: 0; min-height: 44px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tool { min-width: 44px; min-height: 44px; font-size: 18px; padding: 6px; } .tool.wide { font-size: 11px; max-width: 64px; line-height: 1.15; }
   .tools { top: calc(max(10px, env(safe-area-inset-top)) + 52px); }
   .brand { font-size: 17px; padding: 7px 12px; }
-  .hint { font-size: 12px; white-space: normal; width: 88%; text-align: center; border-radius: 14px; bottom: calc(max(14px, env(safe-area-inset-bottom)) + 66px); }
+  .hint { font-size: 12px; white-space: normal; width: 88%; text-align: center; border-radius: 14px; bottom: calc(max(14px, env(safe-area-inset-bottom)) + 112px); line-height: 1.7; }
 }
 @media (min-width: 1600px) {   /* smart boards: bigger touch targets */
   .views button { padding: 16px 26px; font-size: 24px; min-height: 64px; } .tool { min-width: 64px; min-height: 64px; font-size: 28px; }

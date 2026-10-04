@@ -22,16 +22,21 @@ export class UI {
       else document.exitFullscreen?.();
     };
     $('skip').onclick = () => app.rig.skipIntro();
+    // help text (full nikud for young readers): touch vs mouse
+    const touch = matchMedia('(pointer: coarse)').matches;
+    $('hint').textContent = touch
+      ? 'גִּרְרוּ בְּאֶצְבַּע לְסִבּוּב • צִבְטוּ לְהַגְדָּלָה • שְׁתֵּי אֶצְבָּעוֹת לְהַזָּזָה • הַקִּישׁוּ פַּעֲמַיִם כְּדֵי לְהִתְקָרֵב'
+      : 'גִּרְרוּ לְסִבּוּב • גַּלְגֶּלֶת לְהַגְדָּלָה • לְחִיצָה יְמָנִית לְהַזָּזָה • לְחִיצָה כְּפוּלָה כְּדֵי לְהִתְקָרֵב';
     this.refresh();
   }
   setActive(key) { [...this.views.children].forEach((b) => b.classList.toggle('active', b.dataset.view === key)); }
   refresh() {
     $('btn-mute').textContent = this.app.audio.muted ? '🔇' : '🔊';
-    $('btn-quality').textContent = 'איכות: ' + QUALITY[this.app.qualityKey].label;
+    $('btn-quality').textContent = 'אֵיכוּת: ' + QUALITY[this.app.qualityKey].label;
   }
   progress(p, text) { $('bar-fill').style.width = `${Math.round(p * 100)}%`; if (text) $('load-text').textContent = text; }
   ready(onStart) {
-    $('load-text').textContent = 'העיר מוכנה!'; $('bar-fill').style.width = '100%';
+    $('load-text').textContent = 'הָעִיר מוּכָנָה!'; $('bar-fill').style.width = '100%';
     const btn = $('start'); btn.hidden = false; btn.onclick = () => onStart();
   }
   hideLoader() { const l = $('loader'); l.classList.add('fade'); setTimeout(() => (l.hidden = true), 700); }
