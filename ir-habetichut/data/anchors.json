@@ -1,0 +1,181 @@
+{
+  "coordinate_system": "three.js Y-up, metres (Blender x,y,z -> x,z,-y)",
+  "anchors": [
+    {
+      "id": "ANCHOR_01_SchoolCrosswalk",
+      "type": "crosswalk_zebra",
+      "label_he": "מעבר חציה ליד בית הספר",
+      "position": [
+        16.5,
+        0.0,
+        -0.0
+      ],
+      "heading_deg": 90
+    },
+    {
+      "id": "ANCHOR_02_SchoolGate",
+      "type": "sidewalk_school",
+      "label_he": "שער בית הספר",
+      "position": [
+        16.5,
+        0.15,
+        -7.6
+      ],
+      "heading_deg": 270
+    },
+    {
+      "id": "ANCHOR_03_Intersection_NorthCrosswalk",
+      "type": "crosswalk_signal",
+      "label_he": "צומת ראשי - מעבר צפוני",
+      "position": [
+        0.0,
+        0.0,
+        -5.5
+      ],
+      "heading_deg": 0
+    },
+    {
+      "id": "ANCHOR_04_Intersection_EastCrosswalk",
+      "type": "crosswalk_signal",
+      "label_he": "צומת ראשי - מעבר מזרחי",
+      "position": [
+        5.5,
+        0.0,
+        -0.0
+      ],
+      "heading_deg": 90
+    },
+    {
+      "id": "ANCHOR_05_Intersection_Center",
+      "type": "intersection",
+      "label_he": "מרכז הצומת",
+      "position": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "heading_deg": 0
+    },
+    {
+      "id": "ANCHOR_06_BusStop_Shelter",
+      "type": "bus_stop",
+      "label_he": "תחנת האוטובוס",
+      "position": [
+        31.0,
+        0.15,
+        5.2
+      ],
+      "heading_deg": 90
+    },
+    {
+      "id": "ANCHOR_07_BusStop_BehindBus",
+      "type": "bus_road",
+      "label_he": "הכביש מאחורי האוטובוס בתחנה",
+      "position": [
+        23.5,
+        0.0,
+        1.75
+      ],
+      "heading_deg": 0
+    },
+    {
+      "id": "ANCHOR_08_StopSign_SideStreetN",
+      "type": "stop_sign",
+      "label_he": "תמרור עצור - רחוב הזית",
+      "position": [
+        22.5,
+        0.0,
+        -10.0
+      ],
+      "heading_deg": 270
+    },
+    {
+      "id": "ANCHOR_09_YieldSign_SideStreetS",
+      "type": "yield_sign",
+      "label_he": "תמרור תן זכות קדימה - רחוב הגפן",
+      "position": [
+        -22.5,
+        0.0,
+        10.0
+      ],
+      "heading_deg": 90
+    },
+    {
+      "id": "ANCHOR_10_BikeLane_West",
+      "type": "bike_lane",
+      "label_he": "שביל אופניים",
+      "position": [
+        -20.0,
+        0.15,
+        -7.6
+      ],
+      "heading_deg": 0
+    },
+    {
+      "id": "ANCHOR_11_PlaygroundGate",
+      "type": "playground",
+      "label_he": "שער גן המשחקים",
+      "position": [
+        24.0,
+        0.15,
+        12.0
+      ],
+      "heading_deg": 270
+    },
+    {
+      "id": "ANCHOR_12_ParkEdge_Road",
+      "type": "park_road_edge",
+      "label_he": "שפת הכביש ליד הפארק",
+      "position": [
+        8.0,
+        0.15,
+        6.0
+      ],
+      "heading_deg": 90
+    },
+    {
+      "id": "ANCHOR_13_Kiosk_Corner",
+      "type": "sidewalk_corner",
+      "label_he": "פינת הקיוסק",
+      "position": [
+        29.5,
+        0.15,
+        -5.2
+      ],
+      "heading_deg": 180
+    },
+    {
+      "id": "ANCHOR_14_SideStreetS_MidBlock",
+      "type": "road_midblock",
+      "label_he": "אמצע רחוב הגפן (חציה לא במעבר)",
+      "position": [
+        -24.0,
+        0.0,
+        22.0
+      ],
+      "heading_deg": 90
+    },
+    {
+      "id": "ANCHOR_15_Sidewalk_Shops",
+      "type": "sidewalk_shops",
+      "label_he": "מדרכה ליד החנויות",
+      "position": [
+        -22.0,
+        0.15,
+        -5.0
+      ],
+      "heading_deg": 0
+    },
+    {
+      "id": "ANCHOR_16_SideStreetN_Crosswalk",
+      "type": "crosswalk_zebra",
+      "label_he": "מעבר חציה ברחוב הזית",
+      "position": [
+        24.0,
+        0.0,
+        -5.5
+      ],
+      "heading_deg": 0
+    }
+  ]
+}

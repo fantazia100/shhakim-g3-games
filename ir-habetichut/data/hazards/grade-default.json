@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "grade": null,
+  "level": null,
+  "description": "Empty pack - the environment ships without hazards. Real packs are served per user (grade/level) after login.",
+  "hazards": []
+}
