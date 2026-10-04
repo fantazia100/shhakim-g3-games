@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>חוקרים בשחקים — מדעים כיתה ג׳</title>
+<meta name="description" content="משחקים ומצגות למדעים בכיתה ג׳ — חוקרים בשחקים">
+<style>
+:root{
+  --bg:#f5f8ff; --surface:#ffffff; --text:#12295c; --muted:#33466f;
+  --blue:#1d5bbf; --green:#1a7a3c; --orange:#b04a06; --purple:#6a3db3;
+  --blue-soft:#e6efff; --green-soft:#e4f5ea; --orange-soft:#fff0e2; --purple-soft:#f0e9ff;
+  --border:#c9d6ef; --focus:#0b3d91; --focus-ring:#ffbf00;
+  --radius:22px; --shadow:0 4px 0 rgba(18,41,92,.12),0 10px 24px rgba(18,41,92,.08);
+  --fs:100%;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{font-size:var(--fs);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:"Assistant","Rubik","Heebo","Segoe UI","Arial Hebrew",Arial,sans-serif;
+  font-size:1.25rem;line-height:1.55;overflow-x:hidden;
+  background-image:radial-gradient(circle at 8% 12%,rgba(29,91,191,.07) 0 120px,transparent 121px),
+    radial-gradient(circle at 92% 30%,rgba(26,122,60,.07) 0 90px,transparent 91px),
+    radial-gradient(circle at 15% 85%,rgba(176,74,6,.06) 0 100px,transparent 101px)}
+img,svg{max-width:100%}
+a{color:var(--blue)}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;top:-200px;right:1rem;z-index:100;background:var(--text);color:#fff;padding:.8rem 1.2rem;border-radius:12px;font-weight:700;text-decoration:none}
+.skip:focus{top:1rem}
+:focus-visible{outline:4px solid var(--focus);outline-offset:3px;box-shadow:0 0 0 8px var(--focus-ring)}
+:focus:not(:focus-visible){outline:none}
+
+/* top bar + accessibility toolbar */
+.topbar{background:var(--surface);border-bottom:3px solid var(--border)}
+.topbar-inner{max-width:1180px;margin:0 auto;padding:.6rem 1rem;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:.6rem;font-weight:800;font-size:1.15rem;color:var(--text)}
+.brand-logo{width:2.4rem;height:2.4rem;flex:none}
+.a11y{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center}
+.a11y-title{font-size:1rem;font-weight:700;color:var(--muted);margin:0 0 0 .2rem}
+.tool{font:inherit;font-size:1rem;font-weight:700;min-height:48px;min-width:48px;padding:.35rem .8rem;border-radius:14px;
+  border:2px solid var(--blue);background:var(--surface);color:var(--blue);cursor:pointer;display:inline-flex;align-items:center;gap:.3rem}
+.tool:hover{background:var(--blue-soft)}
+.tool[aria-pressed="true"]{background:var(--blue);color:#fff}
+
+main{max-width:1180px;margin:0 auto;padding:1.4rem 1rem 3rem}
+.hero{text-align:center;margin:.8rem 0 1.6rem}
+.hero h1{font-size:clamp(2rem,5.5vw,3.3rem);line-height:1.2;margin:0 0 .4rem;font-weight:800}
+.hero h1 .accent{color:var(--blue)}
+.lead{font-size:clamp(1.25rem,2.6vw,1.6rem);margin:0;color:var(--muted)}
+
+/* home: two big buttons */
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1.4rem;margin-top:1.4rem;list-style:none;padding:0}
+.choice{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;text-align:center;text-decoration:none;
+  min-height:clamp(220px,32vh,340px);padding:1.6rem;border-radius:32px;border:4px solid var(--c);background:var(--soft);color:var(--text);
+  box-shadow:var(--shadow);transition:transform .15s ease,box-shadow .15s ease}
+.choice:hover{transform:translateY(-4px)}
+.choice .emoji{font-size:clamp(3.5rem,9vw,5.5rem);line-height:1}
+.choice .label{font-size:clamp(2.2rem,6vw,3.4rem);font-weight:800;color:var(--c-text)}
+.choice .count{font-size:1.2rem;font-weight:700;background:var(--c);color:#fff;border-radius:999px;padding:.2rem 1rem}
+.choice.games{--c:var(--blue);--soft:var(--blue-soft);--c-text:var(--blue)}
+.choice.pres{--c:var(--purple);--soft:var(--purple-soft);--c-text:var(--purple)}
+.choice.pacing{--c:var(--green);--soft:var(--green-soft);--c-text:var(--green)}
+.thumb{display:block;width:100%;height:auto;aspect-ratio:480/268;object-fit:cover;border-radius:12px;border:1px solid var(--border);background:var(--blue-soft);margin:.2rem 0 .3rem}
+
+/* views */
+.view[hidden]{display:none!important}
+.view-head{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;justify-content:space-between;margin-bottom:.6rem}
+.view-head h1{font-size:clamp(2rem,5vw,3rem);margin:0;line-height:1.2;display:flex;align-items:center;gap:.5rem}
+.view-head h1:focus{outline:none}
+.view-head h1:focus-visible{outline:4px solid var(--focus);outline-offset:4px}
+.back{font:inherit;font-size:1.25rem;font-weight:800;min-height:56px;padding:.5rem 1.3rem;border-radius:16px;border:3px solid var(--text);
+  background:var(--surface);color:var(--text);text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;box-shadow:var(--shadow)}
+.back:hover{background:var(--blue-soft)}
+.hint{margin:.2rem 0 1.4rem;font-size:1.3rem;color:var(--muted)}
+.group{margin:0 0 2rem}
+.group h2{font-size:clamp(1.45rem,3.2vw,1.9rem);margin:0 0 .8rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.group h2 .dot{width:1rem;height:1rem;border-radius:50%;background:var(--c);flex:none}
+.cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:1rem}
+.card{position:relative;display:flex;flex-direction:column;gap:.35rem;height:100%;min-height:150px;padding:1.1rem 1.2rem 1rem;border-radius:var(--radius);
+  background:var(--surface);color:var(--text);text-decoration:none;border:3px solid var(--border);border-top:10px solid var(--c);
+  box-shadow:var(--shadow);transition:transform .15s ease,border-color .15s ease;overflow-wrap:anywhere}
+.card:hover{transform:translateY(-3px);border-color:var(--c)}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.badge{font-size:1rem;font-weight:800;background:var(--c);color:#fff;border-radius:999px;padding:.1rem .8rem;white-space:nowrap}
+.card .emoji{font-size:2.2rem;line-height:1}
+.card-title{font-size:1.45rem;font-weight:800;line-height:1.25}
+.card-desc{font-size:1.1rem;color:var(--muted);line-height:1.4}
+.card-open{margin-top:auto;padding-top:.4rem;font-size:1rem;font-weight:700;color:var(--c-text)}
+.soon{display:flex;align-items:center;justify-content:center;text-align:center;min-height:150px;border:3px dashed var(--border);border-radius:var(--radius);
+  color:var(--muted);font-size:1.3rem;font-weight:700;padding:1rem;background:rgba(255,255,255,.6)}
+.c-blue{--c:var(--blue);--c-text:var(--blue)}
+.c-green{--c:var(--green);--c-text:var(--green)}
+.c-orange{--c:var(--orange);--c-text:var(--orange)}
+.c-purple{--c:var(--purple);--c-text:var(--purple)}
+footer{text-align:center;color:var(--muted);font-size:1rem;padding:1rem 1rem 2rem}
+
+/* high contrast */
+html.hc{--bg:#000;--surface:#000;--text:#fff;--muted:#fff;--blue:#ffe14d;--green:#7dff9b;--orange:#ffb366;--purple:#e3c6ff;
+  --blue-soft:#000;--green-soft:#000;--orange-soft:#000;--purple-soft:#000;--border:#fff;--focus:#fff;--focus-ring:#ff00ff;--shadow:none;color-scheme:dark}
+html.hc body{background-image:none}
+html.hc .badge,html.hc .choice .count,html.hc .tool[aria-pressed="true"]{color:#000}
+html.hc a{text-decoration:underline}
+html.hc .soon{background:#000}
+html.hc .choice,html.hc .card{text-decoration:none}
+html.hc .card-title,html.hc .choice .label{text-decoration:underline;text-underline-offset:4px}
+
+@media (max-width:600px){
+  body{font-size:1.15rem}
+  .topbar-inner{justify-content:center}
+  .brand{width:100%;justify-content:center}
+  .a11y{justify-content:center}
+  .a11y-title{width:100%;text-align:center;margin:0}
+  .view-head{flex-direction:column-reverse;align-items:stretch}
+  .back{justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .choice:hover,.card:hover{transform:none}
+}
+@media (forced-colors:active){
+  .card,.choice,.tool,.back{border:2px solid CanvasText}
+  .badge,.choice .count{border:1px solid CanvasText}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">דלג לתוכן הראשי</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <svg class="brand-logo" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <circle cx="24" cy="24" r="22" fill="#1d5bbf"/>
+        <path d="M10 30c6-2 10-8 14-8s8 6 14 8" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="33" cy="15" r="4" fill="#ffb347"/>
+        <circle cx="15" cy="14" r="2" fill="#7ee08f"/>
+      </svg>
+      <span>חוקרים בשחקים · מדעים כיתה ג׳</span>
+    </div>
+    <div class="a11y" role="group" aria-labelledby="a11y-title">
+      <span class="a11y-title" id="a11y-title">נגישות:</span>
+      <button type="button" class="tool" id="fontUp">א+<span class="sr-only"> הגדלת טקסט</span></button>
+      <button type="button" class="tool" id="fontDown">א−<span class="sr-only"> הקטנת טקסט</span></button>
+      <button type="button" class="tool" id="contrast" aria-pressed="false">ניגודיות גבוהה</button>
+      <button type="button" class="tool" id="nikud" aria-pressed="false">הסתר ניקוד</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <noscript><p>כדי לראות את המשחקים והמצגות יש להפעיל JavaScript בדפדפן.</p></noscript>
+
+  <!-- מסך הבית -->
+  <section class="view" id="view-home" aria-labelledby="home-title">
+    <div class="hero">
+      <h1 id="home-title"><span data-nikud>מָה נִפְתַּח הַיּוֹם?</span></h1>
+      <p class="lead"><span data-nikud>בַּחֲרִי: מִשְׂחָקִים, מַצָּגוֹת אוֹ לוּחַ הַהֶסְפֵּקִים.</span></p>
+    </div>
+    <ul class="choices">
+      <li><a class="choice games" href="#games" id="go-games" aria-describedby="count-games">
+        <span class="emoji" aria-hidden="true">🎮</span>
+        <span class="label" data-nikud>מִשְׂחָקִים</span>
+        <span class="count" id="count-games"></span>
+      </a></li>
+      <li><a class="choice pres" href="#presentations" id="go-presentations" aria-describedby="count-presentations">
+        <span class="emoji" aria-hidden="true">📽️</span>
+        <span class="label" data-nikud>מַצָּגוֹת</span>
+        <span class="count" id="count-presentations"></span>
+      </a></li>
+      <li><a class="choice pacing" href="#" id="go-pacing" target="_blank" rel="noopener noreferrer">
+        <span class="emoji" aria-hidden="true">📅</span>
+        <span class="label" data-nikud>לוּחַ הַהֶסְפֵּקִים</span>
+        <span class="count">נפתח בחלון חדש</span>
+      </a></li>
+    </ul>
+  </section>
+
+  <!-- משחקים -->
+  <section class="view" id="view-games" aria-labelledby="games-title" hidden>
+    <div class="view-head">
+      <h1 id="games-title" tabindex="-1"><span aria-hidden="true">🎮</span> <span data-nikud>מִשְׂחָקִים</span></h1>
+      <a class="back" href="#home"><span aria-hidden="true">→</span> <span data-nikud>חֲזָרָה</span><span class="sr-only"> למסך הבית</span></a>
+    </div>
+    <p class="hint"><span data-nikud>לַחֲצִי עַל כַּרְטִיס, וְהוּא יִפָּתַח בְּחַלּוֹן חָדָשׁ.</span></p>
+    <div id="games-list"></div>
+  </section>
+
+  <!-- מצגות -->
+  <section class="view" id="view-presentations" aria-labelledby="pres-title" hidden>
+    <div class="view-head">
+      <h1 id="pres-title" tabindex="-1"><span aria-hidden="true">📽️</span> <span data-nikud>מַצָּגוֹת</span></h1>
+      <a class="back" href="#home"><span aria-hidden="true">→</span> <span data-nikud>חֲזָרָה</span><span class="sr-only"> למסך הבית</span></a>
+    </div>
+    <p class="hint"><span data-nikud>לַחֲצִי עַל כַּרְטִיס, וְהוּא יִפָּתַח בְּחַלּוֹן חָדָשׁ.</span></p>
+    <div id="presentations-list"></div>
+  </section>
+
+  <p class="sr-only" id="announcer" aria-live="polite"></p>
+</main>
+
+<footer>חוקרים בשחקים · מדעים כיתה ג׳ · תשפ״ז</footer>
+
+<script>
+/* =====================================================================
+   נתונים — כדי להוסיף פריט חדש ("ועוד"), מוסיפים שורה למערך המתאים.
+   group = מזהה קבוצה מתוך GROUPS. badge = התווית הקטנה בכרטיס.
+   ===================================================================== */
+const BASE = 'https://fantazia100.github.io/shhakim-g3-games/';
+
+const GROUPS = {
+  u1:      { name: 'יחידה 1 · חומרים ותכונות',   color: 'blue'   },
+  u2:      { name: 'יחידה 2 · בעירה ודלק',        color: 'orange' },
+  u3:      { name: 'יחידה 3 · חשמל',              color: 'purple' },
+  u4:      { name: 'יחידה 4 · עולם הצמחים',       color: 'green'  },
+  u5:      { name: 'יחידה 5 · מגוון וסביבה',      color: 'blue'   },
+  summary: { name: 'סיכום והעשרה',                color: 'orange' },
+  teacher: { name: 'למורה',                       color: 'purple' }
+};
+
+const GAMES = [
+  { group:'u1', badge:'פיילוט', emoji:'🧪', title:'סוד חמשת החותמות', desc:'חומרים ותכונות', url: BASE + 'unit1-chotamot.html' },
+  { group:'u2', badge:'2.1', emoji:'🔥', title:'סוד שלושת התנאים', desc:'תנאי בעירה', url: BASE + '2.1-tnai-beira.html' },
+  { group:'u2', badge:'2.2', emoji:'⚖️', title:'מאזני הדלק', desc:'חומרי דלק', url: BASE + '2.2-homrey-delek.html' },
+  { group:'u2', badge:'2.3', emoji:'🕎', title:'שמן ואור', desc:'חנוכה', url: BASE + '2.3-hanukkah-shemen-or.html' },
+  { group:'u3', badge:'3.1', emoji:'🔦', title:'מעגל פתוח וסגור', desc:'מעגל חשמלי', url: BASE + '3.1-maagal-patuach-sagur.html' },
+  { group:'u3', badge:'3.2', emoji:'🔌', title:'מוליכים ומבודדים', desc:'מה מוליך חשמל?', url: BASE + '3.2-molichim-umevudadim.html' },
+  { group:'u3', badge:'3.3', emoji:'💡', title:'שימושי חשמל', desc:'חשמל בבית ובכיתה', url: BASE + '3.3-shimushy-chashmal.html' },
+  { group:'u3', badge:'3.4', emoji:'⚠️', title:'בטיחות בחשמל', desc:'כללי זהירות', url: BASE + '3.4-betichut-bachashmal.html' },
+  { group:'u4', badge:'4.1', emoji:'🌱', title:'צורכי קיום של צמח', desc:'מה הצמח צריך?', url: BASE + '4.1-tzorchey-kiyuum.html' },
+  { group:'u4', badge:'4.2', emoji:'🌿', title:'איברי הצמח', desc:'שורש, גבעול, עלה ופרח', url: BASE + '4.2-evrey-hatzemach.html' },
+  { group:'u4', badge:'4.3', emoji:'🌻', title:'מחזור חיים של צמח', desc:'מזרע לצמח', url: BASE + '4.3-machzor-chayim.html' },
+  { group:'u4', badge:'4.4', emoji:'🌳', title:'ט״ו בשבט וצמחי הארץ', desc:'צמחי ארץ ישראל', url: BASE + '4.4-tu-bishvat-tzimchey-haaretz.html' },
+  { group:'u5', badge:'5.1', emoji:'🌾', title:'מגוון צמחים: בר ותרבות', desc:'צמחי בר וצמחי תרבות', url: BASE + '5.1-migvan-tzmachim.html' },
+  { group:'u5', badge:'5.2', emoji:'🌍', title:'חשיבות המגוון והשפעת האדם', desc:'שומרים על הטבע', url: BASE + '5.2-hashpaat-haadam.html' },
+  { group:'u5', badge:'5.3', emoji:'♻️', title:'טכנולוגיה והסביבה', desc:'בל תשחית', url: BASE + '5.3-technologia-ve-sviva.html' },
+  { group:'summary', badge:'מחצית א׳', emoji:'🗺️', title:'מפת הכיתה — סיכום מחצית', desc:'חזרה על מחצית א׳', url: BASE + 'midterm-half1.html' },
+  { group:'summary', badge:'העשרה', emoji:'🪐', title:'כדור הארץ בחלל', desc:'יום ולילה, שמש וירח', url: BASE + 'R.1-kadur-haaretz-bachalal.html' }
+  // ועוד: { group:'u1', badge:'1.5', emoji:'⭐', title:'שם המשחק', desc:'נושא', url: BASE + 'file.html' },
+];
+
+const DECKS = 'presentations/';
+const THUMBS = 'presentations/thumbs/';
+
+const PRESENTATIONS = [
+  { group:'u1', badge:'1.1', emoji:'🧲', title:'סדנת היזמות: תכונות של חומרים', desc:'מוליכות חום, מסיסות ומגנטיות', url: DECKS + '1-1-tchunot-chomer.pdf', thumb: THUMBS + '1-1-tchunot-chomer.jpg' },
+  { group:'u1', badge:'1.2', emoji:'🥣', title:'סוד התערובות', desc:'תערובות והפרדה', url: DECKS + '1-2-taarovot.pdf', thumb: THUMBS + '1-2-taarovot.jpg' },
+  { group:'u1', badge:'1.3', emoji:'🛠️', title:'סדנת הממציאים: מתאימים חומר למוצר!', desc:'התאמת חומר למוצר', url: DECKS + '1-3-hatamat-chomer.pdf', thumb: THUMBS + '1-3-hatamat-chomer.jpg' },
+  { group:'u1', badge:'1.4', emoji:'💡', title:'סטודיו הממציאים', desc:'סיכום יחידה והצעת מוצר', url: DECKS + '1-4-sikum-yechida-hatzaat-mutzar.pdf', thumb: THUMBS + '1-4-sikum-yechida-hatzaat-mutzar.jpg' },
+  { group:'u2', badge:'2.1', emoji:'🔥', title:'קסם האש: מה מסתתר בתוך הלהבה?', desc:'תנאי בעירה — הדגמת מורה', url: DECKS + '2-1-tnai-beira.pdf', thumb: THUMBS + '2-1-tnai-beira.jpg' },
+  { group:'u2', badge:'2.2', emoji:'⚖️', title:'חומרי דלק: אור מול עשן', desc:'תועלת ומחיר סביבתי', url: DECKS + '2-2-homrey-delek.pdf', thumb: THUMBS + '2-2-homrey-delek.jpg' },
+  { group:'u2', badge:'2.3', emoji:'🕎', title:'חנוכה: שמן ואור', desc:'מדע, אור וערכים', url: DECKS + '2-3-hanukkah-shemen-or.pdf', thumb: THUMBS + '2-3-hanukkah-shemen-or.jpg' },
+  { group:'u3', badge:'3.1', emoji:'🔦', title:'אתגר הפנס: סוד המעגל החשמלי', desc:'מעגל פתוח וסגור', url: DECKS + '3-1-maagal-patuach-sagur.pdf', thumb: THUMBS + '3-1-maagal-patuach-sagur.jpg' },
+  { group:'u3', badge:'3.2', emoji:'🔌', title:'מוליכים ומבודדים', desc:'תכנון מתג בטוח', url: DECKS + '3-2-molichim-umevudadim.pdf', thumb: THUMBS + '3-2-molichim-umevudadim.jpg' },
+  { group:'u3', badge:'3.3', emoji:'🔍', title:'סדנת בלשי החשמל', desc:'שימושי חשמל — מצילים צעצוע שבור', url: DECKS + '3-3-shimushey-chashmal.pdf', thumb: THUMBS + '3-3-shimushey-chashmal.jpg' },
+  { group:'u3', badge:'3.4', emoji:'⚠️', title:'בטיחות בחשמל', desc:'הקמת עסק פנסים בטוח', url: DECKS + '3-4-betichut-bachashmal.pdf', thumb: THUMBS + '3-4-betichut-bachashmal.jpg' },
+  { group:'u4', badge:'4.1', emoji:'🌱', title:'הסוד של הצמחים: מהמעבדה אל המשתלה שלנו', desc:'צורכי קיום ותכנון משתלה', url: DECKS + '4-1-tzorchey-kiyuum-mishtala.pdf', thumb: THUMBS + '4-1-tzorchey-kiyuum-mishtala.jpg' },
+  { group:'u4', badge:'4.2', emoji:'🌿', title:'סודות הצמח: ממכונת הטבע לעציץ החכם', desc:'איברי הצמח ותפקודם', url: DECKS + '4-2-evrey-hatzemach.pdf', thumb: THUMBS + '4-2-evrey-hatzemach.jpg' },
+  { group:'u4', badge:'4.3', emoji:'🌻', title:'מחזור החיים של הצמח', desc:'מהזרע ועד שקית הזרעים', url: DECKS + '4-3-machzor-chayim.pdf', thumb: THUMBS + '4-3-machzor-chayim.jpg' },
+  { group:'u4', badge:'4.4', emoji:'🌳', title:'ט״ו בשבט וצמחי הארץ', desc:'יזמים ירוקים בפעולה', url: DECKS + '4-4-tu-bishvat.pdf', thumb: THUMBS + '4-4-tu-bishvat.jpg' },
+  { group:'u5', badge:'5.1', emoji:'🌾', title:'המגוון המופלא של הצמחים סביבנו', desc:'מגוון צמחי בר ותרבות', url: DECKS + '5-1-migvan-tzmachim.pdf', thumb: THUMBS + '5-1-migvan-tzmachim.jpg' },
+  { group:'u5', badge:'5.2', emoji:'🕸️', title:'הטבע כרשת סבוכה', desc:'חשיבות המגוון הביולוגי', url: DECKS + '5-2-chashivut-hamigvan.pdf', thumb: THUMBS + '5-2-chashivut-hamigvan.jpg' },
+  { group:'u5', badge:'5.3', emoji:'♻️', title:'טכנולוגיה וסביבה', desc:'השפעת הטכנולוגיה על הסביבה', url: DECKS + '5-3-technologia-ve-sviva.pdf', thumb: THUMBS + '5-3-technologia-ve-sviva.jpg' },
+  { group:'summary', badge:'העשרה', emoji:'🪐', title:'אסטרונומיה וכדור הארץ בחלל', desc:'יממה, שנה, מופעי הירח וליקויים', url: DECKS + 'r-1-astronomia.pdf', thumb: THUMBS + 'r-1-astronomia.jpg' },
+  { group:'teacher', teacher:true, badge:'כל המצגות', emoji:'📒', title:'המחברת המלאה (למורה)', desc:'כל המצגות במחברת אחת. ייתכן שתתבקשי להתחבר לחשבון.', url:'https://notebook.google.com/notebook/c3cbf64b-85c2-49f2-a59a-734fb41cd6c4' }
+  // ועוד: { group:'u2', badge:'2.4', emoji:'⭐', title:'שם המצגת', desc:'נושא', url: DECKS + 'file.pdf', thumb: THUMBS + 'file.jpg' },
+];
+
+/* לוח ההספקים העדכני (גוגל שיטס) — כפתור שלישי במסך הבית */
+const PACING_URL = 'https://docs.google.com/spreadsheets/d/1trTDJqYOGxrS3rzLrOVi08SirIpftNIqBCOxs8E7h_8/edit';
+
+/* ===================================================================== */
+const NIKUD_RE = /[\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7]/g;
+const $ = (s, r = document) => r.querySelector(s);
+
+function el(tag, attrs = {}, children = []) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === 'text') n.textContent = v; else n.setAttribute(k, v);
+  }
+  for (const c of [].concat(children)) if (c) n.append(c);
+  return n;
+}
+
+function renderList(container, items, kindWord, soonText) {
+  const order = Object.keys(GROUPS);
+  const used = order.filter(g => items.some(i => i.group === g));
+    used.forEach((gid, gi) => {
+    const g = GROUPS[gid];
+    const hid = container.id + '-g' + gi;
+    const list = el('ul', { class: 'cards', 'aria-labelledby': hid });
+    items.filter(i => i.group === gid).forEach(i => {
+      const color = 'c-' + (i.color || g.color);
+      const sep = /[.!?]$/.test(i.title) ? ' ' : '. ';
+      const label = `${i.badge} ${i.title}${i.desc ? sep + i.desc : ''} — ${kindWord}, נפתח בחלון חדש`;
+      const a = el('a', { class: 'card ' + color, href: i.url, target: '_blank', rel: 'noopener noreferrer', 'aria-label': label }, [
+        el('span', { class: 'card-top' }, [
+          el('span', { class: 'badge', text: i.badge }),
+          el('span', { class: 'emoji', 'aria-hidden': 'true', text: i.emoji || '⭐' })
+        ]),
+        i.thumb ? el('img', { class: 'thumb', src: i.thumb, alt: '', loading: 'lazy', decoding: 'async', width: '480', height: '268' }) : null,
+        el('span', { class: 'card-title', text: i.title }),
+        i.desc ? el('span', { class: 'card-desc', text: i.desc }) : null,
+        el('span', { class: 'card-open', 'aria-hidden': 'true', text: 'נפתח בחלון חדש ↖' })
+      ]);
+      list.append(el('li', {}, a));
+    });
+    container.append(el('section', { class: 'group c-' + g.color, 'aria-labelledby': hid }, [
+      el('h2', { id: hid }, [el('span', { class: 'dot', 'aria-hidden': 'true' }), g.name]),
+      list
+    ]));
+  });
+  const soon = el('p', { class: 'soon' }, el('span', { 'data-nikud': '', text: soonText }));
+  container.append(soon);
+}
+
+renderList($('#games-list'), GAMES, 'משחק', 'וְעוֹד מִשְׂחָקִים בְּקָרוֹב…');
+renderList($('#presentations-list'), PRESENTATIONS, 'מצגת', 'עוֹד מַצָּגוֹת בְּקָרוֹב…');
+$('#count-games').textContent = GAMES.length + ' משחקים';
+const nPres = PRESENTATIONS.filter(p => !p.teacher).length;
+$('#count-presentations').textContent = nPres === 1 ? 'מצגת אחת' : nPres + ' מצגות';
+$('#go-pacing').href = PACING_URL;
+
+/* ---------- ניווט בין המסכים (כתובת #games / #presentations) ---------- */
+const VIEWS = { home: 'view-home', games: 'view-games', presentations: 'view-presentations' };
+const TITLES = { home: 'חוקרים בשחקים — מדעים כיתה ג׳', games: 'משחקים — חוקרים בשחקים', presentations: 'מצגות — חוקרים בשחקים' };
+let current = null;
+
+function show(name, moveFocus) {
+  if (!VIEWS[name]) name = 'home';
+  const prev = current;
+  for (const [k, id] of Object.entries(VIEWS)) document.getElementById(id).hidden = (k !== name);
+  document.title = TITLES[name];
+  current = name;
+  if (!moveFocus) return;
+  window.scrollTo(0, 0);
+  if (name === 'home') {
+    const btn = prev && document.getElementById('go-' + prev);
+    (btn || $('#main')).focus();
+  } else {
+    document.getElementById(name === 'games' ? 'games-title' : 'pres-title').focus();
+  }
+}
+window.addEventListener('hashchange', () => show(location.hash.slice(1), true));
+show(location.hash.slice(1), false);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && current !== 'home') location.hash = '#home';
+});
+
+/* ---------- כלי נגישות ---------- */
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('shhakim-' + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem('shhakim-' + k, JSON.stringify(v)); } catch {} }
+};
+const announce = msg => { const a = $('#announcer'); a.textContent = ''; setTimeout(() => a.textContent = msg, 50); };
+
+document.querySelectorAll('[data-nikud]').forEach(n => n.dataset.full = n.textContent);
+function applyNikud(hidden) {
+  document.querySelectorAll('[data-nikud]').forEach(n => {
+    if (!n.dataset.full) n.dataset.full = n.textContent;
+    n.textContent = hidden ? n.dataset.full.replace(NIKUD_RE, '') : n.dataset.full;
+  });
+  $('#nikud').setAttribute('aria-pressed', String(hidden));
+}
+let fs = store.get('fs', 100);
+const applyFs = () => { document.documentElement.style.setProperty('--fs', fs + '%');
+  $('#fontUp').disabled = fs >= 160; $('#fontDown').disabled = fs <= 80; };
+const applyHc = on => { document.documentElement.classList.toggle('hc', on); $('#contrast').setAttribute('aria-pressed', String(on)); };
+
+$('#fontUp').addEventListener('click', () => { fs = Math.min(160, fs + 10); applyFs(); store.set('fs', fs); announce('גודל טקסט ' + fs + ' אחוז'); });
+$('#fontDown').addEventListener('click', () => { fs = Math.max(80, fs - 10); applyFs(); store.set('fs', fs); announce('גודל טקסט ' + fs + ' אחוז'); });
+$('#contrast').addEventListener('click', () => { const on = !document.documentElement.classList.contains('hc'); applyHc(on); store.set('hc', on); announce(on ? 'ניגודיות גבוהה פועלת' : 'ניגודיות גבוהה כבויה'); });
+$('#nikud').addEventListener('click', () => { const h = $('#nikud').getAttribute('aria-pressed') !== 'true'; applyNikud(h); store.set('nikud', h); announce(h ? 'הניקוד מוסתר' : 'הניקוד מוצג'); });
+
+applyFs(); applyHc(store.get('hc', false)); applyNikud(store.get('nikud', false));
+</script>
+</body>
+</html>
